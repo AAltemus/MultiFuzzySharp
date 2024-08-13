@@ -2,6 +2,7 @@
 using FuzzySharp.SimilarityRatio;
 using FuzzySharp.SimilarityRatio.Scorer.Composite;
 using FuzzySharp.SimilarityRatio.Scorer.StrategySensitive;
+using FuzzySharp.SimilarityRatio.Scorer.StrategySensitive.Simple;
 
 namespace FuzzySharp
 {
@@ -357,6 +358,21 @@ namespace FuzzySharp
         public static int WeightedRatio(string input1, string input2, PreprocessMode preprocessMode)
         {
             return ScorerCache.Get<WeightedRatioScorer>().Score(input1, input2, preprocessMode);
+        }
+        #endregion
+
+        #region Jaro-Winkler
+        /// <summary>
+        /// Inconsistent substrings lead to problems in matching. This ratio
+        /// uses a heuristic called "best partial" for when two strings
+        /// are of noticeably different lengths.
+        /// </summary>
+        /// <param name="input1"></param>
+        /// <param name="input2"></param>
+        /// <returns></returns>
+        public static int PrefixRatio(string input1, string input2)
+        {
+            return ScorerCache.Get<PrefixRatioScorer>().Score(input1, input2);
         }
         #endregion
     }
