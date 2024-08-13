@@ -46,6 +46,27 @@ namespace FuzzySharp.Test.FuzzyTests
         }
 
         [Test]
+        public void Test_Jaro_Winkler_Equal()
+        {
+            Assert.AreEqual(Fuzz.PrefixRatio(_s1, _s1A), 100);
+            Assert.AreEqual(Fuzz.PrefixRatio(_s8, _s8A), 100);
+            Assert.AreEqual(Fuzz.PrefixRatio(_s9, _s9A), 100);
+        }
+
+        [Test]
+        public void Test_Jaro_Winkler_Case_Insensitive()
+        {
+            Assert.AreNotEqual(Fuzz.PartialRatio(_s1, _s2), 100);
+        }
+
+        [Test]
+        public void Test_Jaro_Winkler_Partial()
+        {
+            var ratio = Fuzz.PrefixRatio(_s3, _s4);
+            Assert.AreEqual(65, ratio);
+        }
+
+        [Test]
         public void Test_Equal()
         {
             Assert.AreEqual(Fuzz.Ratio(_s1, _s1A), 100);
@@ -137,6 +158,7 @@ namespace FuzzySharp.Test.FuzzyTests
             Assert.That(Fuzz.PartialRatio("test_string", ""), Is.EqualTo(0));
             Assert.That(Fuzz.Ratio("", ""), Is.EqualTo(0));
             Assert.That(Fuzz.PartialRatio("", ""), Is.EqualTo(0));
+            Assert.That(Fuzz.PrefixRatio("", ""), Is.EqualTo(0));
         }
 
         [Test]
